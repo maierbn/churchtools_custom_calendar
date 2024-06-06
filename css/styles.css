@@ -1,4 +1,10 @@
 
+body {
+    --custom-bg-color: #f9e3c8;
+    background-color: var(--custom-bg-color);
+    font-family: roboto, sans-serif;
+}
+
 .event-box {
     box-sizing: border-box;
     font-weight: 300;
@@ -122,6 +128,7 @@ h3 {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    background-color: var(--custom-bg-color);
 }
 .btn-collapser:hover {
 	background-color: var(--custom-primary-color);
