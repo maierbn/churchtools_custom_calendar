@@ -5,7 +5,7 @@ function getParamsFromURL(queryString) {
         return {};
     }
     // Remove the leading question mark (?)
-    var queryStringWithoutQuestionMark = queryString.split('?')[1];
+    var queryStringWithoutQuestionMark = queryString.split('.html?')[1];
 
     // Split the query string into an array of key-value pairs
     const keyValuePairs = queryStringWithoutQuestionMark.split('&');
