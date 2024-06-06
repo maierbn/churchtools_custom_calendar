@@ -5,6 +5,10 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+  
+  # Run regularly
+  schedule:
+    - cron: '0 * * * *'  # Runs at the start of every hour
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -31,6 +35,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Fetch current events from churchtools
+        run: ./fetch_events.sh
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
