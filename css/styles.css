@@ -79,11 +79,16 @@ svg {
 .calendar-link {
     cursor: pointer;
 }
-h1, h3 {
+h1, h2, h3 {
     color: #557e76;  /* custom heading color */
     margin-bottom: 0 !important;
     font-weight: 300;
     line-height: 1.5;
+}
+h2 {
+    font-size: 0.8rem;
+    margin-bottom: .5rem;
+    margin-top: .5rem;
 }
 h3 {
     font-size: 1.0625rem;
