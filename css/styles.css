@@ -66,7 +66,7 @@ body {
 .top-row {
     display: flex;
     flex-direction: row;
-    color: #525f7f;  /* custom text color for dates */
+    color: var(--custom-primary-color); 
     justify-content: space-between;
     align-items: baseline;
     display: flex;
@@ -85,7 +85,7 @@ svg {
     cursor: pointer;
 }
 h1, h2, h3 {
-    color: #557e76;  /* custom heading color */
+    color: var(--custom-primary-color); 
     margin-bottom: 0 !important;
     font-weight: 300;
     line-height: 1.5;
