@@ -1,6 +1,10 @@
 
-body {
+:root {
     --custom-bg-color: #f9e3c8;
+    --custom-primary-color: #557e76;
+}
+
+body {
     background-color: var(--custom-bg-color);
     font-family: roboto, sans-serif;
 }
@@ -41,14 +45,6 @@ body {
     grid-template-areas: "image info price";
 }
 
-@media screen and (max-width: 578px) {
-    .grid-container {
-        display: inline;
-    }
-    grid-area-info {
-        padding: 1em;
-    }
-}
 .grid-area-image {
     margin-right: 0;
     overflow-x: hidden;
@@ -133,7 +129,6 @@ h3 {
     transform: translate(-50%);
     height: 1.875rem;
     width: 13.25rem;
-    --custom-primary-color: #557e76;
     color: var(--custom-primary-color); 
     border-color: var(--custom-primary-color);
 
@@ -165,4 +160,13 @@ h3 {
 }
 .down {
     transform: rotate(180deg);
+}
+
+@media screen and (max-width: 578px) {
+    .grid-container {
+        display: inline;
+    }
+    grid-area-info {
+        padding: 1em;
+    }
 }
