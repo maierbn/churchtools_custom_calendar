@@ -71,13 +71,13 @@
 h1, h3 {
     color: #557e76;  /* custom heading color */
     margin-bottom: 0 !important;
+    font-weight: 300;
+    line-height: 1.5;
 }
 h3 {
     font-size: 1.0625rem;
     margin-bottom: .5rem;
     margin-top: 0;
-    font-weight: 300;
-    line-height: 1.5;
 }
 .mb-2 {
     margin-bottom: .5rem !important;
