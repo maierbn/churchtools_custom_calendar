@@ -40,6 +40,15 @@ body {
     grid-template-rows: auto;
     grid-template-areas: "image info price";
 }
+
+@media screen and (max-width: 578px) {
+    .grid-container {
+        display: inline;
+    }
+    grid-area-info {
+        padding: 1em;
+    }
+}
 .grid-area-image {
     margin-right: 0;
     overflow-x: hidden;
