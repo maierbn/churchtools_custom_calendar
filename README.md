@@ -1,12 +1,17 @@
-# Ziel
-Dieses Projekt stellt einen Web-Kalender zur Verfügung, der Termine aus einer [ChurchTools](https://church.tools/de/startseite/) Instanz lädt und formatiert darstellt. Der Kalender lässt sich dann einfach in einer Homepage einbinden. 
-Der Anwender kann die Formatierung sowie Filterung von Terminen anpassen.
+# Motivation
+[ChurchTools](https://church.tools/de/startseite/) bietet einen rudimentären online Kalender an, der auch in eine Gemeindehomepage eingebunden werden kann. Die Möglichkeiten sind dabei jedoch sehr begrenzt. Zum Beispiel kann kein Bild angezeigt werden. Das Design ist weniger ansprechend als bei der Alternative amosWEB.
 
-Siehe [Demo](https://maierbn.github.io/churchtools_custom_calendar/index.html).
+Dieses Projekt stellt nun einen Web-Kalender zur Verfügung, der die Termine aus einer [ChurchTools](https://church.tools/de/startseite/) Instanz lädt und mit ansprechender Formatierung darstellt. Der Kalender lässt sich dann einfach in einer Homepage einbinden. Das Aussehen ist an amosWEB angelehnt, sodass es visuell nur eine kleine Änderung ist.
 
-Die Termine werden immer zur vollen Stunde aus Churchtools aktualisiert.
+Der Anwender kann die Formatierung sowie Filterung von Terminen anpassen. So können unterschiedliche Kalender-Ausgaben an verschiedenen Stellen auf der Homepage angelegt werden.
+
+Für die Standard-Einstellungen, siehe [Demo](https://maierbn.github.io/churchtools_custom_calendar/index.html).
+
+Die Termine werden immer zur vollen Stunde aus Churchtools aktualisiert. Die Aktualisierung geschieht durch eine Github Action. Es wird die aktuelle Ausgabe aus der API von churchtools als JSON-Datei heruntergeladen. :page_with_curl: Der Kalender ist mithilfe von Github Pages gehostet und stellt die Termine durch javascript-Code dar.
 
 # Verwendung
+:heavy_exclamation_mark: Achtung, dieser Code funktioniert nur für die Termine der [Evang. Kirchengemeinde Malmsheim](https://www.malmsheim-evangelisch.de). Anpassung für andere Gemeinde sind nach Absprache möglich (Repo forken und API endpoint anpassen :wrench:).
+
 Der Kalender kann direkt über folgendes iframe auf der Website eingebunden werden:
 ```html
 <iframe src="https://maierbn.github.io/churchtools_custom_calendar/index.html"></iframe>
