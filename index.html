@@ -44,6 +44,8 @@
 
             // show details
             element.parentElement.childNodes[0].style.display = 'flex';
+            element.childNodes[0].style.display = 'none';
+            element.childNodes[1].style.display = 'block';
         }
         else 
         {
@@ -52,6 +54,8 @@
 
             // hide details
             element.parentElement.childNodes[0].style.display = 'none';
+            element.childNodes[1].style.display = 'none';
+            element.childNodes[0].style.display = 'block';
         }
 
         console.log(element);
