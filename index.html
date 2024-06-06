@@ -204,10 +204,11 @@
             return response.json();
         })
         .then(data => {
+            console.log(data);
             // Iterate over items
-            data.forEach(item => {
-                $('#calendar-container').add(getEventDiv(item))
-            });
+            //data.forEach(item => {
+            //    $('#calendar-container').add(getEventDiv(item))
+            //});
         })
         .catch(error => {
             console.error('Error fetching or parsing JSON:', error);
