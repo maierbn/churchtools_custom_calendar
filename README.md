@@ -7,12 +7,20 @@ Siehe [Demo](https://maierbn.github.io/churchtools_custom_calendar/index.html).
 # Verwendung
 Der Kalender kann direkt über folgendes iframe auf der Website eingebunden werden:
 ```html
-<iframe src="https://maierbn.github.io/churchtools_custom_calendar/index.html">
+<iframe src="https://maierbn.github.io/churchtools_custom_calendar/index.html"></iframe>
 ```
 
-Es sind auch einige Anpassungen möglich:
+Es sind auch einige Anpassungen möglich. Dafür können der URL Parameter übergeben werden. Im folgenden sind alle möglichen Parameter gesetzt:
 
-| Name | Standard-Wert | Beschreibung
+```html
+<iframe src="https://maierbn.github.io/churchtools_custom_calendar/index.html?number-max-entries=10&bg-color=#f9e3c8&primary-color=#557e76&regex-caption=.*&regex-calendar=.*&regex-text=.*"></iframe>
+```
+
+Es können jedoch auch Parameter weggelassen werden, dann werden die Standard-Werte verwendet.
+
+Folgende Einstellungen sind möglich:
+
+| Parameter | Standard-Wert | Beschreibung
 | :--- | :--- | :--- |
 | `number-max-entries` | 10 | Maximale Anzahl Termine die angezeigt werden, maximal bis ein Jahr im Voraus. |
 | `bg-color` | `#f9e3c8` | Hintergrundfarbe |
@@ -21,14 +29,11 @@ Es sind auch einige Anpassungen möglich:
 | `regex-calendar` | `.*` | Kalendername-Filter (als regulärer Ausdruck), zeigt nur entsprechende Termine aus dem angegebenen Kalender an. |
 | `regex-text` | `.*` | Allgemeiner Filter, zeigt nur entsprechende Termine an, bei denen entweder die Überschrift, die Beschreibung oder der Ortsname zum Filter passt. |
 
-Die `regex-*` Variablen sind [reguläre Ausdrücke](https://www.regexe.de/hilfe.jsp). Beispiel:
+Die `regex-*` Variablen sind [reguläre Ausdrücke](https://www.regexe.de/hilfe.jsp). Die einfachste Verwendung ist jedoch als Filter, d.h. einfach ein Wort angeben, dass in dem Termin enthalten sein soll:
+
+Beispiel:
 
 * Nur Termine mit `Gottesdienst` im Titel: `regex-caption=Gottesdienst`
+* Nur Termine die `Gemeindehaus` irgendwo in der Beschreibung haben: `regex-text=Gemeindehaus`
 * Nur aus dem Kalender `Erwachsene`: `regex-calendar=Erwachsene`
-Die entsprechenden Werte für diese Optionen werden in der URI als Argumente mitgegeben:
 
-```html
-<iframe src="https://maierbn.github.io/churchtools_custom_calendar/index.html?number-max-entries=10&bg-color=#f9e3c8&primary-color=#557e76&regex-caption=.*&regex-calendar=.*&regex-text=.*">
-```
-
-Für nicht angegebene Argumente werden die Standard-Werte verwende.
