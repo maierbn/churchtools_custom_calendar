@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API-Daten abrufen</title>
+    <!--<style>
+
+        #frame {
+          display: flex;
+          width: 100%;
+          padding: 15px;
+          row-gap: 15px;
+          column-gap: 15px;
+          flex-wrap: wrap;
+        }
+
+        #frame div {
+          flex: 30% 0 1;
+          display: flex;
+          flex-direction: column;
+          border: 1px solid #777;
+          padding: 8px;
+          border-radius: 6px;
+          background-color: white;
+        }
+
+        #frame div h3 {
+          margin: 0;
+          font-size: 23px;
+          font-family: sans-serif;
+        }
+
+        #frame div h4 {
+          font-size: 14px;
+          font-family: sans-serif;
+          font-weight: normal;
+          margin: 8px 0;
+        }
+
+        #frame div img {
+          width: 100%;
+        }
+
+    </style>-->
+    <style>
+        body {
+            background-color: wheat;
+            font-family: roboto, sans-serif;
+        }
+        
+        #frame {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 30px auto;
+        }
+        /* Styles für jedes Element-DIV */
+        
+        #frame.karten .c_termin {
+            box-sizing: border-box;
+            width: 300px;
+            margin: 10px;
+            padding: 0;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 60, 0.2);
+            background-color: #fff;
+            transition-duration: .3s;
+        }
+        
+        #frame.karten .c_termin:hover {
+            box-shadow: 0 2px 14px rgba(0, 0, 60, 0.3);
+        }
+        
+        #frame.karten .c_text {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #frame.karten .c_bild {
+            height: 8rem;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            background-size: cover;
+            background-position: center;
+        }
+        /* Styles für H3 */
+        
+        #frame.karten h3 {
+            margin: 0;
+            color: #001424;
+            font-family: sans-serif;
+            font-weight: normal;
+        }
+        /* Styles für H4 */
+        
+        #frame span.datum {
+            margin: 5px 0 10px;
+            color: #405464;
+            font-family: sans-serif;
+            font-weight: light;
+            font-size: small;
+            display: block;
+        }
+        /* Styles für das Bild */
+        
+        #frame.karten img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        #frame.liste .c_termin {
+            flex: 100% 1 1;
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: left;
+            column-gap: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 45px;
+        }
+        
+        #frame.liste .c_bild {
+            margin: 0;
+            width: 240px;
+            order: 1;
+            min-height: 150px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        #frame.liste .c_text {
+            padding: 20px;
+        }
+        
+        #frame.liste .c_text p {
+            line-height: 1.4;
+            color: #525f7f;
+        }
+        
+        #frame.liste .c_text p a {
+            color: #557e76;
+        }
+        
+        #frame.liste .c_text p:before {
+            width: 100%;
+            display: block;
+            content: ' ';
+            border-top: 1px dashed #333;
+        }
+        
+        #frame.liste h3 {
+            margin: 0;
+            color: #001424;
+            color: #557e76;
+            font-family: sans-serif;
+            font-weight: 300;
+            line-height: 1.5;
+            /*font-size: calc(1.295rem + .54vw);*/
+        }
+        
+        #frame.liste h4 {
+            margin-top: 0;
+            font-weight: 100;
+            color: #557e76;
+            font-family: sans-serif;
+        }
+        
+        @media screen and (max-width: 578px) {
+            #frame.liste .c_termin
+            {
+                flex-direction: column-reverse;
+            }
+            #frame.liste .c_bild
+            {
+                width: 100%;
+                min-height: 200px;
+            }
+        }
+        
+        
+    </style>
+</head>
+
+<body>
+    <?php
+    
+    // Standardklasse ist "liste"
+$frameClass = "liste";
+
+// Überprüfe, ob der GET-Parameter 'layout' existiert und einem der erlaubten Werte entspricht
+$allowedLayouts = ['karten', 'liste']; // Erlaubte Werte
+if (isset($_GET['layout']) && in_array($_GET['layout'], $allowedLayouts)) {
+    $frameClass = $_GET['layout'];
+}
+    
+  $view = filter_input(INPUT_GET, 'view', FILTER_VALIDATE_INT);
+$ctnr = filter_input(INPUT_GET, 'ctnr', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1000, 'max_range' => 9999)));
+$cals = filter_input(INPUT_GET, 'cals', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
+  ?>
+        <!-- <?php echo htmlspecialchars($frameClass); ?> -->
+        <h1>API-Daten abrufen</h1>
+        <p>Im Folgenden Beispiel können Termine in einem beliebigen Zeitraum abgerufen werden. Der Stil der Darstellung ist dabei vollständig flexibel.</p>
+        <button onclick="getData()">Daten abrufen</button>
+        <div id="frame" class="liste"> </div>
+        <!--<button class="blättern-btn" onclick="blättern(3)">Nächste 3</button>-->
+        <div id="flex-container"></div>
+        <script>
+            // Im Folgenden mal eine extrem basale Abfrage, vermutlich auch nicht optimal gelöst, aber als ein erstes proof of concept
+            var jsonObj = [];
+
+            function getData() {
+                //API-Endpunkt
+                //const apiEndpoint = 'https://elkw2808.krz.tools/api/calendars/31/appointments?from=2023-09-27&to=2023-11-27';
+                const apiEndpoint = 'https://elkw2808.krz.tools/api/calendars/31/appointments?from=2023-12-01&to=2024-04-31';
+                //Hier kann automatisch natürlich das aktuelle Datum eingetragen werden, vorab müssen wir lediglich die ID des Kalenders wissen, den wir abfragen wollen
+                // API-Anfrage senden
+                fetch(apiEndpoint, {
+                    method: 'GET'
+                    , headers: {
+                        'Accept': 'application/json'
+                        , 'Accept-Charset': 'utf-8'
+                            // spezifizierung, dass utf-8 -  ist vermutlich obsolet
+                    }
+                , }).then(response => response.json()).then(data => {
+                    console.log(JSON.stringify(data, null, 2));
+                    jsonObj = JSON.parse(JSON.stringify(data));
+                    console.log(jsonObj);
+                    jsonObj.data.forEach(function (item) {
+                        appendDivToFrame(item);
+                    });
+                }).catch(error => {
+                    console.error('Fehler beim Abrufen der Daten:', error);
+                });
+            }
+
+            function appendDivToFrame(item) {
+                /*var div = document.createElement('div');
+
+  
+                var h3 = document.createElement('h3');
+                h3.textContent = item.base.caption;
+                div.appendChild(h3);
+
+  
+                var h4 = document.createElement('h4');
+                h4.textContent = item.base.startDate;
+                div.appendChild(h4);
+
+  
+                if (item.base.image !== null) {
+                  
+                  var img = document.createElement('img');
+                  img.src = item.base.image.fileUrl;
+                  img.alt = item.base.caption;
+                  div.appendChild(img);
+                }*/
+                /*var div = '<div class="c_termin"><div class="c_text"><span class="datum">' + new Date(item.base.startDate).toLocaleDateString('de-DE', {
+                    day: 'numeric'
+                    , month: 'long'
+                    , year: 'numeric'
+                    , hour: '2-digit'
+                    , minute: '2-digit'
+                }) + '</span><h3>' + item.base.caption + '</h3></div></div>';*/
+                const untertitel = item.base.note ? item.base.note : "";
+                const ortsoutput = item.base.address ? item.base.address.meetingAt : "";
+                var trenner = '';
+                if (untertitel !== '' && ortsoutput !== '') {
+                    trenner += ' | ';
+                };
+                
+                var beschreibung = '';
+                if (item.base.information !== null && item.base.information !== undefined && item.base.information !== "") {
+                    // Speichere item.base.information als Textvariable
+                    var beschreibung = '<p>' + item.base.information + ' </p>';
+
+                    // Ersetze Texte zwischen zwei * durch strong-Tags
+                    beschreibung = beschreibung.replace(/\*([^*]+)\*/g, "<strong>$1</strong>");
+
+                    // Ersetze zusammenhängende Wörter, die mit https: oder www. beginnen, durch Links
+                    beschreibung = beschreibung.replace(/(https?:\/\/\S+|www\.\S+)/g, '<a href="$1" target="_blank">$1</a>');
+                    
+                    beschreibung = beschreibung.replace(/\n/g, "<br>");
+                }
+                    
+                
+                
+                var dasImg = "";
+                    if (item.base.image !== null) {
+                        dasImg = item.base.image.fileUrl;
+                    }
+                    else {
+                        dasImg = "kalender.jpg";
+                    }
+                var div = '<div class="c_termin"><div class="c_bild" style="background-image:url(' + dasImg + ')" alt="' + item.base.caption + '"></div><div class="c_text"><span class="datum">' + new Date(item.base.startDate).toLocaleDateString('de-DE', {
+                    day: 'numeric'
+                    , month: 'long'
+                    , year: 'numeric'
+                    , hour: '2-digit'
+                    , minute: '2-digit'
+                }) + '</span><h3>' + item.base.caption + '</h3><h4>' + untertitel + trenner + ortsoutput + '</h4>'+ beschreibung + '</div></div>';
+                //document.getElementById('frame').appendChild(div);
+                document.getElementById('frame').insertAdjacentHTML('beforeend', div);
+            }
+        </script>
+        <!--<script>
+    function blättern(schritte) {
+        var rahmen = document.getElementById('frame');
+        var divs = rahmen.getElementsByClassName('c_termin');
+
+        for (var i = 0; i < divs.length; i++) {
+            if (i < schritte || (i >= schritte && i < schritte * 2)) {
+                divs[i].style.display = 'block';
+            } else {
+                divs[i].style.display = 'none';
+            }
+        }
+    }
+</script>-->
+</body>
+
+</html>
