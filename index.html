@@ -28,8 +28,8 @@
     console.log(params);
 
     // Access the values of the variables
-    const primary_color = params.has('primary-color') ? params.get('primary-color') : '#557e76';
-    const bg_color = params.has('bg-color') ? params.get('bg-color') : '#f9e3c8';
+    const primary_color = paramshasOwnProperty('primary-color') ? params['primary-color'] : '#557e76';
+    const bg_color = params.hasOwnProperty('bg-color') ? params['bg-color'] : '#f9e3c8';
 
     console.log('bg_color:', bg_color);
     console.log('primary_color:', primary_color);
@@ -39,7 +39,7 @@
     document.documentElement.style.setProperty('--custom-primary-color', primary_color);
     document.documentElement.style.setProperty('--custom-bg-color', bg_color);
 
-    const number_max_entries = params.has('number-max-entries') ? parseInt(params.get('number-max-entries')) : 10;
+    const number_max_entries = params.hasOwnProperty('number-max-entries') ? parseInt(params['number-max-entries']) : 10;
 
     console.log('number_max_entries:', number_max_entries);
 
@@ -130,9 +130,9 @@
         }
 
         
-        const regexPatternCaption = params.has('regex_caption') ? new RegExp(params.get('regex_caption')) : /.*/;
-        const regexPatternCalendar = params.has('regex_calendar') ? new RegExp(params.get('regex_calendar')) : /.*/;
-        const regexPatternText = params.has('regex_text') ? new RegExp(params.get('regex_text')) : /.*/;
+        const regexPatternCaption = params.hasOwnProperty('regex_caption') ? new RegExp(params['regex_caption']) : /.*/;
+        const regexPatternCalendar = params.hasOwnProperty('regex_calendar') ? new RegExp(params['regex_calendar']) : /.*/;
+        const regexPatternText = params.hasOwnProperty('regex_text') ? new RegExp(params['regex_text']) : /.*/;
 
         console.log('regexPatternCaption: ',regexPatternCaption);
         console.log('regexPatternCalendar: ',regexPatternCalendar);
