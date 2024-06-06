@@ -166,7 +166,7 @@ h3 {
     .grid-container {
         display: inline;
     }
-    grid-area-info {
+    .grid-area-info {
         padding: 1em;
     }
 }

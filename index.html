@@ -120,7 +120,7 @@
         .then(object => {
             console.log(object);
             // Iterate over items
-            object.data.forEach(item => {
+            object.data.slice(0, 10).forEach(item => {
                 $('#calendar-container').append(getEventDiv(item))
             });
         })
