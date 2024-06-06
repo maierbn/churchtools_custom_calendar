@@ -106,11 +106,10 @@ h3 {
     z-index: 1;
 }
 .collapser.is-collapsed {
-	bottom: -1.875rem;
+	bottom: -1.775rem;
 	border-top: none;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
-    top: -2px;
 }
 .collapser:not(.is-collapsed) {
 	bottom: 0;
