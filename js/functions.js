@@ -56,19 +56,19 @@ function createICSFile(startDate, endDate, summary, description, location) {
     const end = new Date(endDate).toISOString().replace(/-|:|\.\d+/g, '');
 
     const icsContent = `
-    BEGIN:VCALENDAR
-    VERSION:2.0
-    PRODID:-//Your Organization//Your Product//EN
-    BEGIN:VEVENT
-    UID:${new Date().getTime()}@yourdomain.com
-    DTSTAMP:${new Date().toISOString().replace(/-|:|\.\d+/g, '')}
-    DTSTART:${start}
-    DTEND:${end}
-    SUMMARY:${summary}
-    DESCRIPTION:${description}
-    LOCATION:${location}
-    END:VEVENT
-    END:VCALENDAR
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Evang Kirchengemeinde Malmsheim//Gottesdienste//EN
+BEGIN:VEVENT
+UID:${new Date().getTime()}@malmsheim-evangelisch.de
+DTSTAMP:${new Date().toISOString().replace(/-|:|\.\d+/g, '')}
+DTSTART:${start}
+DTEND:${end}
+SUMMARY:${summary}
+DESCRIPTION:${description}
+LOCATION:${location}
+END:VEVENT
+END:VCALENDAR
     `.trim();
 
     const blob = new Blob([icsContent], { type: 'text/calendar' });
