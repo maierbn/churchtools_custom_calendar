@@ -30,6 +30,9 @@
 .grid-container {
     display: grid;
     gap: 1.5rem;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "image info price";
 }
 .grid-area-image {
     margin-right: 0;
