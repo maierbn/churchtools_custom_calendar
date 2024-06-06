@@ -135,3 +135,10 @@ h3 {
 	color: #fff;
 	border-color: var(--custom-primary-color);
 }
+.details {
+    margin: 0 1rem;
+    padding-bottom: 3rem !important;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    padding: 1.5rem !important;
+}
