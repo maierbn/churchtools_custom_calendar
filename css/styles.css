@@ -48,19 +48,26 @@
 }
 .grid-area-info {
     grid-area: info;
+    display: flex;
+    flex-direction: column;
 }
 .top-row {
     display: flex;
     flex-direction: row;
-}
-.baseline {
-    display: flex !important;
-    flex-wrap: wrap !important;
+    color: #525f7f;  /* custom text color for dates */
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: .25rem !important;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: .25rem;
     gap: .5rem;
-    color: #525f7f;  /* custom text color for dates */
+}
+svg {
+    height: 1em;
+}
+.date {
+    font-family: Open Sans, sons-serif;
+    font-size: 1rem;
 }
 .calendar-link {
     cursor: pointer;
