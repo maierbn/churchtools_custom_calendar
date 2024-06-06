@@ -1,6 +1,11 @@
 function getParamsFromURL(queryString) {
+
+    if (queryString.indexOf("?") == -1)
+    {
+        return {};
+    }
     // Remove the leading question mark (?)
-    const queryStringWithoutQuestionMark = queryString.split('?')[1];
+    var queryStringWithoutQuestionMark = queryString.split('?')[1];
 
     // Split the query string into an array of key-value pairs
     const keyValuePairs = queryStringWithoutQuestionMark.split('&');
