@@ -28,7 +28,7 @@
     console.log(params);
 
     // Access the values of the variables
-    const primary_color = paramshasOwnProperty('primary-color') ? params['primary-color'] : '#557e76';
+    const primary_color = params.hasOwnProperty('primary-color') ? params['primary-color'] : '#557e76';
     const bg_color = params.hasOwnProperty('bg-color') ? params['bg-color'] : '#f9e3c8';
 
     console.log('bg_color:', bg_color);
