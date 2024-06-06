@@ -40,7 +40,7 @@
         if (element.classList.contains('is-collapsed')) 
         {
             element.classList.remove('is-collapsed');
-            element.classList.add('collapsed');
+            element.classList.add('is-collapsed');
 
             // show details
             element.parentElement.childNodes[0].style.display = 'flex';
@@ -48,7 +48,7 @@
         }
         else 
         {
-            element.classList.remove('collapsed');
+            element.classList.remove('is-collapsed');
             element.classList.add('is-collapsed');
 
             // hide details
