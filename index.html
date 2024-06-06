@@ -22,6 +22,25 @@
     <div id="calendar-container" class="liste"> </div>
     <div id="flex-container"></div>
     <script>
+    
+    // Parse the URL search parameters
+    const params = new URLSearchParams(window.location.search);
+
+    // Access the values of the variables
+    const primary_color = params.has('primary-color') ? params.get('primary-color') : '#557e76';
+    const bg_color = params.has('bg-color') ? params.get('bg-color') : '#f9e3c8';
+
+    console.log('bg_color: ${bg_color}');
+    console.log('primary_color: ${primary_color}');
+
+
+    // set main colors
+    document.documentElement.style.setProperty('--custom-primary-color', primary_color);
+    document.documentElement.style.setProperty('--custom-bg-color', bg_color);
+
+    const number_max_entries = params.has('number-max-entries') ? parseInt(params.get('number-max-entries')) : 10;
+
+    console.log('number_max_entries: ${number_max_entries}');
 
     function showDetails(element) {
 
@@ -109,6 +128,15 @@
             return result
         }
 
+        
+        const regexPatternCaption = params.has('regex_caption') ? new RegExp(params.get('regex_caption')) : /.*/;
+        const regexPatternCalendar = params.has('regex_calendar') ? new RegExp(params.get('regex_calendar')) : /.*/;
+        const regexPatternText = params.has('regex_text') ? new RegExp(params.get('regex_text')) : /.*/;
+
+        console.log('regexPatternCaption: ${regexPatternCaption}');
+        console.log('regexPatternCalendar: ${regexPatternCalendar}');
+        console.log('regexPatternText: ${regexPatternText}');
+
         // Fetch the JSON file
         fetch('events.json')
         .then(response => {
@@ -120,7 +148,13 @@
         .then(object => {
             console.log(object);
             // Iterate over items
-            object.data.slice(0, 10).forEach(item => {
+            object.data
+            .filter(item => regexPatternCaption.test(item.base.caption))
+            .filter(item => regexPatternCalendar.test(item.base.calendar.name))
+            .filter(item => regexPatternText.test(item.base.note) 
+                || regexPatternText.test(item.base.caption) || regexPatternText.test(item.base.information) )
+            .slice(0, number_max_entries)
+            .forEach(item => {
                 $('#calendar-container').append(getEventDiv(item))
             });
         })
