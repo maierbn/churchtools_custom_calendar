@@ -130,9 +130,9 @@
         }
 
         
-        const regexPatternCaption = params.hasOwnProperty('regex_caption') ? new RegExp(params['regex_caption']) : /.*/;
-        const regexPatternCalendar = params.hasOwnProperty('regex_calendar') ? new RegExp(params['regex_calendar']) : /.*/;
-        const regexPatternText = params.hasOwnProperty('regex_text') ? new RegExp(params['regex_text']) : /.*/;
+        const regexPatternCaption = params.hasOwnProperty('regex-caption') ? new RegExp(params['regex-caption']) : /.*/;
+        const regexPatternCalendar = params.hasOwnProperty('regex-calendar') ? new RegExp(params['regex-calendar']) : /.*/;
+        const regexPatternText = params.hasOwnProperty('regex-text') ? new RegExp(params['regex-text']) : /.*/;
 
         console.log('regexPatternCaption: ',regexPatternCaption);
         console.log('regexPatternCalendar: ',regexPatternCalendar);
