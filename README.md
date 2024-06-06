@@ -21,12 +21,10 @@ Es sind auch einige Anpassungen möglich:
 | `regex-calendar` | `.*` | Kalendername-Filter (als regulärer Ausdruck), zeigt nur entsprechende Termine aus dem angegebenen Kalender an. |
 | `regex-text` | `.*` | Allgemeiner Filter, zeigt nur entsprechende Termine an, bei denen entweder die Überschrift, die Beschreibung oder der Ortsname zum Filter passt. |
 
-Die `regex-*` Variablen sind [reguläre Ausdrücke](https://www.regexe.de/hilfe.jsp). Beispiele:
+Die `regex-*` Variablen sind [reguläre Ausdrücke](https://www.regexe.de/hilfe.jsp). Beispiel:
 
-* Nur Termine mit `Gottesdienst` im Titel: `regex-caption=.*Gottesdienst.*`
-* Nur Termine, die mit Seniorennachmittag beginnen: `regex-caption=Seniorennachmittag.*`
-* Nur Termine, deren Titel Seniorennachmittag ist: `regex-caption=Seniorennachmittag` (Heißt der Termin z.B. `Seniorennachmittag mit Referent`, wird er nicht angezeigt.)
-
+* Nur Termine mit `Gottesdienst` im Titel: `regex-caption=Gottesdienst`
+* Nur aus dem Kalender `Erwachsene`: `regex-calendar=Erwachsene`
 Die entsprechenden Werte für diese Optionen werden in der URI als Argumente mitgegeben:
 
 ```html

@@ -66,7 +66,7 @@ body {
 .top-row {
     display: flex;
     flex-direction: row;
-    color: var(--custom-primary-color); 
+    color: #525f7f;  /* custom text color for dates */
     justify-content: space-between;
     align-items: baseline;
     display: flex;
