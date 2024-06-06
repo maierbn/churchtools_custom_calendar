@@ -142,4 +142,6 @@ h3 {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
     padding: 1.5rem !important;
+    display: none;
+    background: #fff;
 }
