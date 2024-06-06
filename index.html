@@ -25,6 +25,7 @@
     
     // Parse the URL search parameters
     const params = new URLSearchParams(window.location.search);
+    console.log(params);
 
     // Access the values of the variables
     const primary_color = params.has('primary-color') ? params.get('primary-color') : '#557e76';
