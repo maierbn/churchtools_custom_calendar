@@ -52,24 +52,3 @@ function createICSFile(startDate, endDate, summary, description, location) {
     URL.revokeObjectURL(url);
 }
 
-
-function showDetails(element) {
-
-    // Check if is-collapsed class is present
-    if (element.classList.contains('is-collapsed')) 
-    {
-        element.classList.remove('is-collapsed');
-        element.classList.add('collapsed');
-
-        // show details
-        object.parentElement.childNodes[0].style.display = 'flex';
-    }
-    else 
-    {
-        element.classList.remove('collapsed');
-        element.classList.add('is-collapsed');
-
-        // hide details
-        object.parentElement.childNodes[0].style.display = 'none';
-    }
-}
