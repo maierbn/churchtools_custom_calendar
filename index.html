@@ -24,7 +24,7 @@
     <script>
     
     // Parse the URL search parameters
-    const params = new URLSearchParams(window.location.search);
+    const params = getParamsFromURL(window.location);
     console.log(params);
 
     // Access the values of the variables

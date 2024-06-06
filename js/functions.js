@@ -1,3 +1,28 @@
+function getParamsFromURL(queryString) {
+    // Remove the leading question mark (?)
+    const queryStringWithoutQuestionMark = queryString.substring(1);
+
+    // Split the query string into an array of key-value pairs
+    const keyValuePairs = queryStringWithoutQuestionMark.split('&');
+
+    // Initialize an object to store the parameters
+    const params = {};
+
+    // Iterate over the key-value pairs array
+    keyValuePairs.forEach(pair => {
+        // Split each pair into key and value
+        const [key, value] = pair.split('=');
+
+        // Decode URI components to handle special characters
+        const decodedKey = decodeURIComponent(key);
+        const decodedValue = decodeURIComponent(value);
+
+        // Add the key-value pair to the params object
+        params[decodedKey] = decodedValue;
+    });
+
+    return params;
+}
 
 function formatDates(startDate, endDate) {
     // Create Date objects
