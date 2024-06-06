@@ -4,46 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API-Daten abrufen</title>
-    <!--<style>
-
-        #frame {
-          display: flex;
-          width: 100%;
-          padding: 15px;
-          row-gap: 15px;
-          column-gap: 15px;
-          flex-wrap: wrap;
-        }
-
-        #frame div {
-          flex: 30% 0 1;
-          display: flex;
-          flex-direction: column;
-          border: 1px solid #777;
-          padding: 8px;
-          border-radius: 6px;
-          background-color: white;
-        }
-
-        #frame div h3 {
-          margin: 0;
-          font-size: 23px;
-          font-family: sans-serif;
-        }
-
-        #frame div h4 {
-          font-size: 14px;
-          font-family: sans-serif;
-          font-weight: normal;
-          margin: 8px 0;
-        }
-
-        #frame div img {
-          width: 100%;
-        }
-
-    </style>-->
+    <title>Churchtools Kalender</title>
     <style>
         body {
             background-color: wheat;
@@ -58,7 +19,7 @@
         }
         /* Styles für jedes Element-DIV */
         
-        #frame.karten .c_termin {
+        #frame.cards .c_date {
             box-sizing: border-box;
             width: 300px;
             margin: 10px;
@@ -70,16 +31,16 @@
             transition-duration: .3s;
         }
         
-        #frame.karten .c_termin:hover {
+        #frame.cards .c_date:hover {
             box-shadow: 0 2px 14px rgba(0, 0, 60, 0.3);
         }
         
-        #frame.karten .c_text {
+        #frame.cards .c_text {
             padding: 20px;
             text-align: center;
         }
         
-        #frame.karten .c_bild {
+        #frame.cards .c_picture {
             height: 8rem;
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
@@ -88,7 +49,7 @@
         }
         /* Styles für H3 */
         
-        #frame.karten h3 {
+        #frame.cards h3 {
             margin: 0;
             color: #001424;
             font-family: sans-serif;
@@ -106,7 +67,7 @@
         }
         /* Styles für das Bild */
         
-        #frame.karten img {
+        #frame.cards img {
             max-width: 100%;
             height: auto;
             margin-top: 10px;
@@ -114,7 +75,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
-        #frame.liste .c_termin {
+        #frame.liste .c_date {
             flex: 100% 1 1;
             display: flex;
             flex-direction: row-reverse;
@@ -126,7 +87,7 @@
             margin-bottom: 45px;
         }
         
-        #frame.liste .c_bild {
+        #frame.liste .c_picture {
             margin: 0;
             width: 240px;
             order: 1;
@@ -173,156 +134,85 @@
         }
         
         @media screen and (max-width: 578px) {
-            #frame.liste .c_termin
+            #frame.liste .c_date
             {
                 flex-direction: column-reverse;
             }
-            #frame.liste .c_bild
+            #frame.liste .c_picture
             {
                 width: 100%;
                 min-height: 200px;
             }
         }
-        
-        
     </style>
 </head>
 
 <body>
-    <?php
-    
-    // Standardklasse ist "liste"
-$frameClass = "liste";
+    <div id="frame" class="liste"> </div>
+    <div id="calendar-container"></div>
+    <script>
 
-// Überprüfe, ob der GET-Parameter 'layout' existiert und einem der erlaubten Werte entspricht
-$allowedLayouts = ['karten', 'liste']; // Erlaubte Werte
-if (isset($_GET['layout']) && in_array($_GET['layout'], $allowedLayouts)) {
-    $frameClass = $_GET['layout'];
-}
-    
-  $view = filter_input(INPUT_GET, 'view', FILTER_VALIDATE_INT);
-$ctnr = filter_input(INPUT_GET, 'ctnr', FILTER_VALIDATE_INT, array('options' => array('min_range' => 1000, 'max_range' => 9999)));
-$cals = filter_input(INPUT_GET, 'cals', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
-  ?>
-        <!-- <?php echo htmlspecialchars($frameClass); ?> -->
-        <h1>API-Daten abrufen</h1>
-        <p>Im Folgenden Beispiel können Termine in einem beliebigen Zeitraum abgerufen werden. Der Stil der Darstellung ist dabei vollständig flexibel.</p>
-        <button onclick="getData()">Daten abrufen</button>
-        <div id="frame" class="liste"> </div>
-        <!--<button class="blättern-btn" onclick="blättern(3)">Nächste 3</button>-->
-        <div id="flex-container"></div>
-        <script>
-            // Im Folgenden mal eine extrem basale Abfrage, vermutlich auch nicht optimal gelöst, aber als ein erstes proof of concept
-            var jsonObj = [];
+        // define function to format event
+        function getEventDiv(item) {
+            const untertitel = item.base.note ? item.base.note : "";
+            const ortsoutput = item.base.address ? item.base.address.meetingAt : "";
+            var trenner = '';
+            if (untertitel !== '' && ortsoutput !== '') {
+                trenner += ' | ';
+            };
+            
+            var beschreibung = '';
+            if (item.base.information !== null && item.base.information !== undefined && item.base.information !== "") {
+                // Speichere item.base.information als Textvariable
+                var beschreibung = '<p>' + item.base.information + ' </p>';
 
-            function getData() {
-                //API-Endpunkt
-                //const apiEndpoint = 'https://elkw2808.krz.tools/api/calendars/31/appointments?from=2023-09-27&to=2023-11-27';
-                const apiEndpoint = 'https://elkw2808.krz.tools/api/calendars/31/appointments?from=2023-12-01&to=2024-04-31';
-                //Hier kann automatisch natürlich das aktuelle Datum eingetragen werden, vorab müssen wir lediglich die ID des Kalenders wissen, den wir abfragen wollen
-                // API-Anfrage senden
-                fetch(apiEndpoint, {
-                    method: 'GET'
-                    , headers: {
-                        'Accept': 'application/json'
-                        , 'Accept-Charset': 'utf-8'
-                            // spezifizierung, dass utf-8 -  ist vermutlich obsolet
-                    }
-                , }).then(response => response.json()).then(data => {
-                    console.log(JSON.stringify(data, null, 2));
-                    jsonObj = JSON.parse(JSON.stringify(data));
-                    console.log(jsonObj);
-                    jsonObj.data.forEach(function (item) {
-                        appendDivToFrame(item);
-                    });
-                }).catch(error => {
-                    console.error('Fehler beim Abrufen der Daten:', error);
-                });
+                // Ersetze Texte zwischen zwei * durch strong-Tags
+                beschreibung = beschreibung.replace(/\*([^*]+)\*/g, "<strong>$1</strong>");
+
+                // Ersetze zusammenhängende Wörter, die mit https: oder www. beginnen, durch Links
+                beschreibung = beschreibung.replace(/(https?:\/\/\S+|www\.\S+)/g, '<a href="$1" target="_blank">$1</a>');
+                
+                beschreibung = beschreibung.replace(/\n/g, "<br>");
             }
-
-            function appendDivToFrame(item) {
-                /*var div = document.createElement('div');
-
-  
-                var h3 = document.createElement('h3');
-                h3.textContent = item.base.caption;
-                div.appendChild(h3);
-
-  
-                var h4 = document.createElement('h4');
-                h4.textContent = item.base.startDate;
-                div.appendChild(h4);
-
-  
+                
+            
+            
+            var dasImg = "";
                 if (item.base.image !== null) {
-                  
-                  var img = document.createElement('img');
-                  img.src = item.base.image.fileUrl;
-                  img.alt = item.base.caption;
-                  div.appendChild(img);
-                }*/
-                /*var div = '<div class="c_termin"><div class="c_text"><span class="datum">' + new Date(item.base.startDate).toLocaleDateString('de-DE', {
-                    day: 'numeric'
-                    , month: 'long'
-                    , year: 'numeric'
-                    , hour: '2-digit'
-                    , minute: '2-digit'
-                }) + '</span><h3>' + item.base.caption + '</h3></div></div>';*/
-                const untertitel = item.base.note ? item.base.note : "";
-                const ortsoutput = item.base.address ? item.base.address.meetingAt : "";
-                var trenner = '';
-                if (untertitel !== '' && ortsoutput !== '') {
-                    trenner += ' | ';
-                };
-                
-                var beschreibung = '';
-                if (item.base.information !== null && item.base.information !== undefined && item.base.information !== "") {
-                    // Speichere item.base.information als Textvariable
-                    var beschreibung = '<p>' + item.base.information + ' </p>';
-
-                    // Ersetze Texte zwischen zwei * durch strong-Tags
-                    beschreibung = beschreibung.replace(/\*([^*]+)\*/g, "<strong>$1</strong>");
-
-                    // Ersetze zusammenhängende Wörter, die mit https: oder www. beginnen, durch Links
-                    beschreibung = beschreibung.replace(/(https?:\/\/\S+|www\.\S+)/g, '<a href="$1" target="_blank">$1</a>');
-                    
-                    beschreibung = beschreibung.replace(/\n/g, "<br>");
+                    dasImg = item.base.image.fileUrl;
                 }
-                    
-                
-                
-                var dasImg = "";
-                    if (item.base.image !== null) {
-                        dasImg = item.base.image.fileUrl;
-                    }
-                    else {
-                        dasImg = "kalender.jpg";
-                    }
-                var div = '<div class="c_termin"><div class="c_bild" style="background-image:url(' + dasImg + ')" alt="' + item.base.caption + '"></div><div class="c_text"><span class="datum">' + new Date(item.base.startDate).toLocaleDateString('de-DE', {
-                    day: 'numeric'
-                    , month: 'long'
-                    , year: 'numeric'
-                    , hour: '2-digit'
-                    , minute: '2-digit'
-                }) + '</span><h3>' + item.base.caption + '</h3><h4>' + untertitel + trenner + ortsoutput + '</h4>'+ beschreibung + '</div></div>';
-                //document.getElementById('frame').appendChild(div);
-                document.getElementById('frame').insertAdjacentHTML('beforeend', div);
-            }
-        </script>
-        <!--<script>
-    function blättern(schritte) {
-        var rahmen = document.getElementById('frame');
-        var divs = rahmen.getElementsByClassName('c_termin');
+                else {
+                    dasImg = "kalender.jpg";
+                }
+            var div = '<div class="c_date"><div class="c_picture" style="background-image:url(' + dasImg + ')" alt="' + item.base.caption + '"></div><div class="c_text"><span class="datum">' + new Date(item.base.startDate).toLocaleDateString('de-DE', {
+                day: 'numeric'
+                , month: 'long'
+                , year: 'numeric'
+                , hour: '2-digit'
+                , minute: '2-digit'
+            }) + '</span><h3>' + item.base.caption + '</h3><h4>' + untertitel + trenner + ortsoutput + '</h4>'+ beschreibung + '</div></div>';
 
-        for (var i = 0; i < divs.length; i++) {
-            if (i < schritte || (i >= schritte && i < schritte * 2)) {
-                divs[i].style.display = 'block';
-            } else {
-                divs[i].style.display = 'none';
-            }
+            return div
         }
-    }
-</script>-->
-</body>
 
+        // Fetch the JSON file
+        fetch('events.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Iterate over items
+            data.forEach(item => {
+                $('#calendar-container').add(getEventDiv(item))
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing JSON:', error);
+        });
+
+    </script>
+</body>
 </html>
