@@ -125,6 +125,7 @@ h3 {
     font-size: .875rem;
 
     display: inline-flex;
+    gap: 0.5rem;
     align-items: center;
     justify-content: center;
     cursor: pointer;
