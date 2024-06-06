@@ -105,13 +105,13 @@ h3 {
     position: relative;
     z-index: 1;
 }
-.collapser.is-collapsed {
+.btn-collapser.is-collapsed {
 	bottom: -1.775rem;
 	border-top: none;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
-.collapser:not(.is-collapsed) {
+.btn-collapser:not(.is-collapsed) {
 	bottom: 0;
 	border-bottom: none;
 	border-bottom-left-radius: 0;
@@ -138,6 +138,7 @@ h3 {
     justify-content: center;
     cursor: pointer;
     background-color: var(--custom-bg-color);
+    border-radius: .375rem;
 }
 .btn-collapser:hover {
 	background-color: var(--custom-primary-color);
