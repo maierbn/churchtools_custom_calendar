@@ -30,8 +30,8 @@
     const primary_color = params.has('primary-color') ? params.get('primary-color') : '#557e76';
     const bg_color = params.has('bg-color') ? params.get('bg-color') : '#f9e3c8';
 
-    console.log('bg_color: ${bg_color}');
-    console.log('primary_color: ${primary_color}');
+    console.log('bg_color:', bg_color);
+    console.log('primary_color:', primary_color);
 
 
     // set main colors
@@ -40,7 +40,7 @@
 
     const number_max_entries = params.has('number-max-entries') ? parseInt(params.get('number-max-entries')) : 10;
 
-    console.log('number_max_entries: ${number_max_entries}');
+    console.log('number_max_entries:', number_max_entries);
 
     function showDetails(element) {
 
@@ -133,9 +133,9 @@
         const regexPatternCalendar = params.has('regex_calendar') ? new RegExp(params.get('regex_calendar')) : /.*/;
         const regexPatternText = params.has('regex_text') ? new RegExp(params.get('regex_text')) : /.*/;
 
-        console.log('regexPatternCaption: ${regexPatternCaption}');
-        console.log('regexPatternCalendar: ${regexPatternCalendar}');
-        console.log('regexPatternText: ${regexPatternText}');
+        console.log('regexPatternCaption: ',regexPatternCaption);
+        console.log('regexPatternCalendar: ',regexPatternCalendar);
+        console.log('regexPatternText: ',regexPatternText);
 
         // Fetch the JSON file
         fetch('events.json')
