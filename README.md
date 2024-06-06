@@ -4,6 +4,8 @@ Der Anwender kann die Formatierung sowie Filterung von Terminen anpassen.
 
 Siehe [Demo](https://maierbn.github.io/churchtools_custom_calendar/index.html).
 
+Die Termine werden immer zur vollen Stunde aus Churchtools aktualisiert.
+
 # Verwendung
 Der Kalender kann direkt über folgendes iframe auf der Website eingebunden werden:
 ```html
