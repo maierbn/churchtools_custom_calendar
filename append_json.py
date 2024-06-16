@@ -11,7 +11,7 @@ def append_json(source_file, dest_file):
         dest_data = json.load(file)["data"]
     
     # Append the source data to the destination data
-    dest_data.append(source_data)
+    dest_data += source_data
     
     # Write the updated destination data back to the file
     with open(dest_file, 'w') as file:
