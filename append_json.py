@@ -3,22 +3,22 @@ import json
 
 def append_json(source_file, dest_file):
     # Read the source JSON file
-    with open(source_file, 'r') as sf:
-        source_data = json.load(sf)["data"]
+    with open(source_file, 'r') as file:
+        source_data = json.load(file)["data"]
     
     # Read the destination JSON file
-    with open(dest_file, 'r') as df:
-        dest_data = json.load(df)["data"]
+    with open(dest_file, 'r') as file:
+        dest_data = json.load(file)["data"]
     
     # Append the source data to the destination data
     dest_data.append(source_data)
     
     # Write the updated destination data back to the file
-    with open(dest_file, 'w') as df:
+    with open(dest_file, 'w') as file:
         result = {
             "data": dest_data
         }
-        json.dump(result, df, indent=4)
+        json.dump(result, file, indent=4)
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:

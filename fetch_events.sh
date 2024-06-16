@@ -13,7 +13,7 @@ response=$(curl -s -X POST -d "$data" "$url")
 calendar_categories=$(echo "$response" | jq -r '.data.category | keys[] | tonumber')
 
 # Initialize the events.json file
-echo "[]" > events.json
+echo "{\"data\": []}" > events.json
 
 # Iterate over each integer and fetch the JSON results
 for category_id in $calendar_categories; do
