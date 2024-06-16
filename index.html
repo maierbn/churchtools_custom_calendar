@@ -182,6 +182,18 @@
             console.error('Error fetching or parsing JSON:', error);
         });
 
+        // send height of the window to the parent window
+        function sendHeight() {
+            const height = document.body.scrollHeight;
+            window.parent.postMessage({ iframeHeight: height }, '*');
+        }
+
+        // Send the height once the content is loaded
+        window.onload = sendHeight;
+
+        // Optionally, send the height on window resize
+        window.onresize = sendHeight;
+
     </script>
 </body>
 </html>
