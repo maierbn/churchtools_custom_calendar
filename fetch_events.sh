@@ -18,10 +18,16 @@ echo "[]" > events.json
 # Iterate over each integer and fetch the JSON results
 for category_id in $calendar_categories; do
     api_url="https://elkw2808.krz.tools/api/calendars/$category_id/appointments?from=${current_date}&to=${one_year_from_now}"
-    appointment_response=$(curl -s "$api_url")
+
+    # Save the fetched JSON response to a temporary file
+    temp_file="appointment_$category_id.json"
+    curl -s "$api_url" -o "$temp_file"
     
-    # Append the fetched JSON to the events.json file
-    jq ". += [$appointment_response]" events.json > temp.json && mv temp.json events.json
+    # Call the Python script to append the JSON data to events.json
+    python3 append_json.py "$temp_file" "events.json"
+    
+    # Remove the temporary file
+    rm "$temp_file"
 done
 
 # available calendars: 31, 49, 52, 55, 58, 60, 67, 73, 76
