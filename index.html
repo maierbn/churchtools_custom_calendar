@@ -148,8 +148,16 @@
         })
         .then(object => {
             console.log(object);
+
+            // Sort the events by startDate
+            const sortedEvents = object.data.sort((a, b) => {
+                const dateA = new Date(a.base.startDate);
+                const dateB = new Date(b.base.startDate);
+                return dateA - dateB;
+            });
+
             // Iterate over items
-            object.data
+            sortedEvents
             .filter(item => regexPatternCaption.test(item.base.caption))
             .filter(item => regexPatternCalendar.test(item.base.calendar.name))
             .filter(item => regexPatternText.test(item.base.note) 
