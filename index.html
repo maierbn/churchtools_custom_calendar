@@ -155,9 +155,12 @@
                 const dateB = new Date(b.base.startDate);
                 return dateA - dateB;
             });
+            const uniqueEvents = sortedEvents.filter((event, index, self) => 
+                index === self.findIndex((e) => e.base.id === event.base.id)
+            );
 
             // Iterate over items
-            sortedEvents
+            uniqueEvents
             .filter(item => regexPatternCaption.test(item.base.caption))
             .filter(item => regexPatternCalendar.test(item.base.calendar.name))
             .filter(item => regexPatternText.test(item.base.note) 
