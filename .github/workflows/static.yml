@@ -36,7 +36,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Fetch current events from churchtools
-        run: apt-get install jq && ./fetch_events.sh
+        run: sudo apt-get install jq && ./fetch_events.sh
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
