@@ -159,7 +159,9 @@
                 return dateA - dateB;
             });
             const uniqueEvents = sortedEvents.filter((event, index, self) => 
-                index === self.findIndex((e) => e.base.id === event.base.id)
+                index === self.findIndex((e) => (e.base.id === event.base.id) 
+                && (e.calculated.startDate === event.calculated.startDate) 
+                && (e.base.caption === event.base.caption))
             );
 
             // Get today's date without the time part
