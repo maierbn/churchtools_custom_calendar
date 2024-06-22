@@ -30,7 +30,18 @@ for category_id in $calendar_categories; do
     rm "$temp_file"
 done
 
+python3 resolve_repeating_events.py
+
 # available calendars: 31, 49, 52, 55, 58, 60, 67, 73, 76
+# 31 Gottesdienst
+# 46 Kirchenjahr 2023/24
+# 49 Kinder
+# 52 Jugend
+# 55 Erwachsene
+# 58 Familie
+# 67 Westerfeld Café
+# 73 Ferien BaWü
+# 76 Kirchenjahr 2024/25
 
 echo "finished downloading events at ${current_date}" > msg.html
 ls -l >> msg.html
