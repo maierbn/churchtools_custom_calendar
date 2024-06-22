@@ -159,6 +159,10 @@ h3 {
     display: none;
     background: #fff;
 }
+.details-container {
+    display: flex;
+    flex-direction: column;
+}
 .down {
     transform: rotate(180deg);
 }
