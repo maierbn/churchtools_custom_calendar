@@ -174,4 +174,7 @@ h3 {
     .grid-area-info {
         padding: 1em;
     }
+    .details {
+        flex-direction: column;
+    }
 }
