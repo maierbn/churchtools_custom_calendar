@@ -102,7 +102,9 @@
 
             var detailed_location = "";
             if (item.base.address !== null) {
-                detailed_location = item.base.address.meetingAt + ", " + item.base.address.street;
+                detailed_location = item.base.address.meetingAt;
+                if (item.base.address.street !== null)
+                    detailed_location += ", " + item.base.address.street;
             }
 
             var date_str = formatDates(item.calculated.startDate, item.calculated.endDate);
