@@ -177,4 +177,7 @@ h3 {
     .details {
         flex-direction: column;
     }
+    .grid-image {
+        height: 100px;
+    }
 }
