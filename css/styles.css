@@ -180,4 +180,7 @@ h3 {
     .grid-image {
         height: 100px;
     }
+    h1 {
+        font-size: 1.7em;
+    }
 }
