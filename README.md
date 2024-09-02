@@ -43,4 +43,4 @@ Beispiel:
 * Nur Termine mit `Gottesdienst` im Titel: `regex-caption=Gottesdienst`
 * Nur Termine die `Gemeindehaus` irgendwo in der Beschreibung haben: `regex-text=Gemeindehaus`
 * Nur aus dem Kalender `Erwachsene`: `regex-calendar=Erwachsene`
-
+ 
