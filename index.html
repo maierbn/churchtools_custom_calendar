@@ -84,6 +84,7 @@
                 
                 var information = item.base.information;
                 information_unmodified = information;
+                information_unmodified = information_unmodified.replace(/\n/g, "");
 
                 // Replace text between *...* by strong tags
                 information = information.replace(/\*([^*]+)\*/g, "<strong>$1</strong>");
