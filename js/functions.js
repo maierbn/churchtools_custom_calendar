@@ -50,10 +50,21 @@ function formatDates(startDate, endDate) {
     return formattedString;
 }
 
+function escapeICSField(text) {
+    return text.replace(/\\/g, '\\\\')  // Escape backslashes first
+               .replace(/,/g, '\\,')     // Escape commas
+               .replace(/;/g, '\\;')     // Escape semicolons
+               .replace(/\n/g, '\\n');   // Escape newlines
+}
 
 function createICSFile(startDate, endDate, summary, description, location) {
     const start = new Date(startDate).toISOString().replace(/-|:|\.\d+/g, '');
     const end = new Date(endDate).toISOString().replace(/-|:|\.\d+/g, '');
+
+    // Escape special characters for ICS fields
+    const escapedSummary = escapeICSField(summary);
+    const escapedDescription = escapeICSField(description);
+    const escapedLocation = escapeICSField(location);
 
     const icsContent = `
 BEGIN:VCALENDAR
@@ -64,9 +75,9 @@ UID:${new Date().getTime()}@malmsheim-evangelisch.de
 DTSTAMP:${new Date().toISOString().replace(/-|:|\.\d+/g, '')}
 DTSTART:${start}
 DTEND:${end}
-SUMMARY:${summary}
-DESCRIPTION:${description}
-LOCATION:${location}
+SUMMARY:${escapedSummary}
+DESCRIPTION:${escapedDescription}
+LOCATION:${escapedLocation}
 END:VEVENT
 END:VCALENDAR
     `.trim();
@@ -81,4 +92,3 @@ END:VCALENDAR
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
-
