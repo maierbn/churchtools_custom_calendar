@@ -20,7 +20,7 @@ Der Kalender kann direkt über folgendes iframe auf der Website eingebunden werd
 Es sind auch einige Anpassungen möglich. Dafür können der URL Parameter übergeben werden. Im folgenden sind alle möglichen Parameter gesetzt:
 
 ```html
-<iframe src="https://maierbn.github.io/churchtools_custom_calendar/index.html?number-max-entries=10&bg-color=#f9e3c8&primary-color=#557e76&regex-caption=.*&regex-calendar=.*&regex-text=.*"></iframe>
+<iframe src="https://maierbn.github.io/churchtools_custom_calendar/index.html?number-max-entries=10&bg-color=#f9e3c8&primary-color=#557e76&regex-caption=.*&regex-calendar=.*&regex-text=.*&auto-uncollapse-first=1"></iframe>
 ```
 
 Es können jedoch auch Parameter weggelassen werden, dann werden die Standard-Werte verwendet.
@@ -35,6 +35,7 @@ Folgende Einstellungen sind möglich:
 | `regex-caption` | `.*` | Überschrift-Filter (als regulärer Ausdruck), zeigt nur entsprechende Termine an bei denen die Überschrift passt. |
 | `regex-calendar` | `.*` | Kalendername-Filter (als regulärer Ausdruck), zeigt nur entsprechende Termine aus dem angegebenen Kalender an. |
 | `regex-text` | `.*` | Allgemeiner Filter, zeigt nur entsprechende Termine an, bei denen entweder die Überschrift, die Beschreibung oder der Ortsname zum Filter passt. |
+| `auto-uncollapse-first` | | `0` | Automatisches Öffnen des ersten angezeigten Eintrags. Wenn auf `1` gesetzt, wird nur der erste Eintrag automatisch ausgeklappt. |
 
 Die `regex-*` Variablen sind [reguläre Ausdrücke](https://www.regexe.de/hilfe.jsp). Die einfachste Verwendung ist jedoch als Filter, d.h. einfach ein Wort angeben, dass in dem Termin enthalten sein soll:
 
