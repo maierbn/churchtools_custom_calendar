@@ -47,6 +47,9 @@
 
     function showDetails(element) {
 
+        console.log(element);
+        return;
+        
         // Check if is-collapsed class is present
         if (element.classList.contains('is-collapsed')) 
         {
@@ -65,9 +68,8 @@
             element.childNodes[1].classList.add('down');
         }
 
-        console.log(element);
     }
-    
+
     // Initialize a flag to track the first un-collapsed entry
     let firstUncollapsedShown = false;
 
