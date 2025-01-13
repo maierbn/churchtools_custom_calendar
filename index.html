@@ -45,6 +45,29 @@
     console.log('number_max_entries:', number_max_entries);
     console.log('auto_uncollapse_first:', auto_uncollapse_first);
 
+    function showDetails(element) {
+
+        // Check if is-collapsed class is present
+        if (element.classList.contains('is-collapsed')) 
+        {
+            element.classList.remove('is-collapsed');
+
+            // show details
+            element.parentElement.childNodes[0].style.display = 'flex';
+            element.childNodes[1].classList.remove('down');
+        }
+        else 
+        {
+            element.classList.add('is-collapsed');
+
+            // hide details
+            element.parentElement.childNodes[0].style.display = 'none';
+            element.childNodes[1].classList.add('down');
+        }
+
+        console.log(element);
+    }
+    
     // Initialize a flag to track the first un-collapsed entry
     let firstUncollapsedShown = false;
 
