@@ -48,7 +48,6 @@
     function showDetails(element) {
 
         console.log(element);
-        return;
 
         // Check if is-collapsed class is present
         if (element.classList.contains('is-collapsed')) 
@@ -56,7 +55,7 @@
             element.classList.remove('is-collapsed');
 
             // show details
-            element.parentElement.childNodes[0].style.display = 'flex';
+            element.parentElement.childNodes[1].style.display = 'flex';
             element.childNodes[1].classList.remove('down');
         }
         else 
