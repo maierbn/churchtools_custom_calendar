@@ -96,10 +96,11 @@
         const detailsStyle = isUncollapsed ? "flex" : "none";
         const buttonClass = isUncollapsed ? "" : "is-collapsed";
         const classDown = isUncollapsed ? "" : "class=\"down\"";
-        const linkText = item.base.link == null? "" : 
-            ("https://elkw2808.krz.tools/publicgroup" in item.base.link ? 
-            `<p><i class=\"fa-solid fa-right-to-bracket\"></i>&nbsp;<a href=\"${item.base.link}\">Zur Anmeldung</a></p>` : 
-            `<p><i class=\"fas fa-link\"></i>&nbsp;<a href=\"${item.base.link}\">Link</a></p>`);
+        const linkText = item.base.link == null ? "" :
+            item.base.link.includes("https://elkw2808.krz.tools/publicgroup") ?
+            `<p><i class="fa-solid fa-right-to-bracket"></i>&nbsp;<a href="${item.base.link}">Zur Anmeldung</a></p>` :
+            `<p><i class="fas fa-link"></i>&nbsp;<a href="${item.base.link}">Link</a></p>`;
+
 
         let result = `
             <div class="event-box">
