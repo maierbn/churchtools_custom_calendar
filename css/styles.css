@@ -185,10 +185,10 @@ h3 {
     }
 }
 
-.details-icon {
+i.details-icon {
     margin-right: 6px;
 }
-.details {
+p.details-icon {
     margin-top: 1px;
     margin-bottom: 3px;
 }
