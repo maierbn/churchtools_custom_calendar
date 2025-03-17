@@ -96,6 +96,7 @@
         const detailsStyle = isUncollapsed ? "flex" : "none";
         const buttonClass = isUncollapsed ? "" : "is-collapsed";
         const classDown = isUncollapsed ? "" : "class=\"down\"";
+        const linkText = item.base.link == null? "" : `<p><i class=\"fas fa-link\"></i>&nbsp;${item.base.link}</p>`;
 
         let result = `
             <div class="event-box">
@@ -128,6 +129,7 @@
                         <div class="details-container">
                             <p>${information}</p>
                             <p><i class="fas fa-map-marker-alt"></i>&nbsp;${location}</p>
+                            ${linkText}
                         </div>
                     </div>
                     <button class="btn-collapser ${buttonClass}" onclick="javascript:showDetails(this);">
