@@ -188,3 +188,7 @@ h3 {
 .details-icon {
     margin-right: 6px;
 }
+p {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
