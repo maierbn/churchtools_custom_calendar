@@ -75,7 +75,7 @@
     // Modify the `getEventDiv` function
     function getEventDiv(item) {
         const small_note = item.base.note ? item.base.note : "";
-        const location = item.base.address ? item.base.address.meetingAt : "";
+        const location = item.base.address ? (item.base.address.meetingAt ? item.base.address.meetingAt : "") : "";
         const separator = small_note && location ? " | " : "";
 
         let information = '';
@@ -98,8 +98,9 @@
         const classDown = isUncollapsed ? "" : "class=\"down\"";
         const linkText = item.base.link == null ? "" :
             item.base.link.includes("https://elkw2808.krz.tools/publicgroup") ?
-            `<p><i class="fa-solid fa-right-to-bracket"></i>&nbsp;<a href="${item.base.link}">Zur Anmeldung</a></p>` :
-            `<p><i class="fas fa-link"></i>&nbsp;<a href="${item.base.link}">Link</a></p>`;
+            `<p><i class="fa-solid fa-right-to-bracket"></i><a href="${item.base.link}">Zur Anmeldung</a></p>` :
+            `<p><i class="fas fa-link"></i><a href="${item.base.link}">Link</a></p>`;
+        const locationText = location == "" ? "" : `<p><i class="fas fa-map-marker-alt"></i>${location}</p>`;
 
 
         let result = `
@@ -132,7 +133,7 @@
                         <h2>Beschreibung</h2>
                         <div class="details-container">
                             <p>${information}</p>
-                            <p><i class="fas fa-map-marker-alt"></i>&nbsp;${location}</p>
+                            ${locationText}
                             ${linkText}
                         </div>
                     </div>
