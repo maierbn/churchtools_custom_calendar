@@ -20,7 +20,7 @@ Der Kalender kann direkt über folgendes iframe auf der Website eingebunden werd
 Es sind auch einige Anpassungen möglich. Dafür können der URL Parameter übergeben werden. Im folgenden sind alle möglichen Parameter gesetzt:
 
 ```html
-<iframe src="https://maierbn.github.io/churchtools_custom_calendar/index.html?number-max-entries=10&bg-color=#f9e3c8&primary-color=#557e76&regex-caption=.*&regex-calendar=.*&regex-text=.*&auto-uncollapse-first=1"></iframe>
+<iframe src="https://maierbn.github.io/churchtools_custom_calendar/index.html?number-max-entries=10&bg-color=#ead4b9&primary-color=#557e76&regex-caption=.*&regex-calendar=.*&regex-text=.*&auto-uncollapse-first=1"></iframe>
 ```
 
 Es können jedoch auch Parameter weggelassen werden, dann werden die Standard-Werte verwendet.
@@ -30,7 +30,7 @@ Folgende Einstellungen sind möglich:
 | Parameter | Standard-Wert | Beschreibung
 | :--- | :--- | :--- |
 | `number-max-entries` | 10 | Maximale Anzahl Termine die angezeigt werden, maximal bis ein Jahr im Voraus. |
-| `bg-color` | `#f9e3c8` | Hintergrundfarbe |
+| `bg-color` | `#ead4b9` | Hintergrundfarbe |
 | `primary-color` | `#557e76` | Schrift- and Rahmenfarbe |
 | `regex-caption` | `.*` | Überschrift-Filter (als regulärer Ausdruck), zeigt nur entsprechende Termine an bei denen die Überschrift passt. |
 | `regex-calendar` | `.*` | Kalendername-Filter (als regulärer Ausdruck), zeigt nur entsprechende Termine aus dem angegebenen Kalender an. |
