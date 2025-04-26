@@ -30,7 +30,10 @@
 
     // Access the values of the variables
     const primary_color = params.hasOwnProperty('primary-color') ? params['primary-color'] : '#557e76';
-    const bg_color = params.hasOwnProperty('bg-color') ? params['bg-color'] : '#f9e3c8';
+    const bg_color_input = params.hasOwnProperty('bg-color') ? params['bg-color'] : '#ead4b9';
+
+    // Adjust the beige color to match the new layout color
+    const bg_color = bg_color_input == "#f9e3c8" ? "#ead4b9" : bg_color_input;
 
     console.log('bg_color:', bg_color);
     console.log('primary_color:', primary_color);
