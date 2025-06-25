@@ -7,7 +7,7 @@ Der Anwender kann die Formatierung sowie Filterung von Terminen anpassen. So kö
 
 Für die Standard-Einstellungen, siehe [Demo](https://maierbn.github.io/churchtools_custom_calendar/index.html).
 
-Die Termine werden immer zur vollen Stunde aus Churchtools aktualisiert. Die Aktualisierung geschieht durch eine Github Action. Es wird die aktuelle Ausgabe aus der API von churchtools als JSON-Datei heruntergeladen. :page_with_curl: Der Kalender ist mithilfe von Github Pages gehostet und stellt die Termine durch javascript-Code dar.
+Die Termine werden immer zur vollen Stunde aus Churchtools aktualisiert. Die Aktualisierung geschieht durch eine Github Action. Es wird die aktuelle Ausgabe aus der API von churchtools als JSON-Datei heruntergeladen. :page_with_curl: Der Kalender ist mithilfe von Github Pages gehostet und stellt die Termine durch Javascript-Code dar.
 
 # Verwendung
 :heavy_exclamation_mark: Achtung, dieser Code funktioniert nur für die Termine der [Evang. Kirchengemeinde Malmsheim](https://www.malmsheim-evangelisch.de). Anpassung für andere Gemeinde sind nach Absprache möglich (Repo forken und API endpoint anpassen :wrench:).
