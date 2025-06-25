@@ -12,7 +12,7 @@ Die Termine werden immer zur vollen Stunde aus Churchtools aktualisiert. Die Akt
 # Verwendung
 :heavy_exclamation_mark: Achtung, dieser Code funktioniert nur für die Termine der [Evang. Kirchengemeinde Malmsheim](https://www.malmsheim-evangelisch.de). Anpassung für andere Gemeinde sind nach Absprache möglich (Repo forken und API endpoint anpassen :wrench:).
 
-Der Kalender kann direkt über folgendes iframe auf der Website eingebunden werden:
+Der Kalender kann direkt über folgendes iframe auf der Website eingebunden werden: 
 ```html
 <iframe src="https://maierbn.github.io/churchtools_custom_calendar/index.html"></iframe>
 ```
