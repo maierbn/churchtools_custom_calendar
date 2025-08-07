@@ -4,26 +4,28 @@ one_year_from_now=$(date -d "+1 year" +%Y-%m-%d)
 
 echo "Starting at $current_date" > log.txt
 
-# query the available calendars
-url="https://elkw2808.krz.tools/index.php?q=churchcal%2Fajax"
-data="func=getMasterData"
+# # query the available calendars
+# url="https://elkw2808.krz.tools/index.php?q=churchcal%2Fajax"
+# data="func=getMasterData"
+# 
+# # Making the POST request using curl
+# response=$(curl -s -X POST -d "$data" "$url")
+# 
+# echo "Fetching calendar categories ..."
+# echo "url=[$url]"
+# echo "data=[$data]"
+# echo "response=[$response]"
+# echo "step 1:"
+# echo "$response" | jq -r '.data.category'
+# echo "step 2:"
+# echo echo "$response" | jq -r '.data.category | keys[]'
+# echo "step 3:"
+# echo "$response" | jq -r '.data.category | keys[] | tonumber'
+# 
+# # Extracting the list of integers using jq
+# calendar_categories=$(echo "$response" | jq -r '.data.category | keys[] | tonumber')
 
-# Making the POST request using curl
-response=$(curl -s -X POST -d "$data" "$url")
-
-echo "Fetching calendar categories ..."
-echo "url=[$url]"
-echo "data=[$data]"
-echo "response=[$response]"
-echo "step 1:"
-echo "$response" | jq -r '.data.category'
-echo "step 2:"
-echo echo "$response" | jq -r '.data.category | keys[]'
-echo "step 3:"
-echo "$response" | jq -r '.data.category | keys[] | tonumber'
-
-# Extracting the list of integers using jq
-calendar_categories=$(echo "$response" | jq -r '.data.category | keys[] | tonumber')
+calendar_categories="31 49 52 55 58 60 67 76 80"
 
 echo "Fetched calendar categories: $calendar_categories" >> log.txt
 
