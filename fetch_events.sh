@@ -2,6 +2,8 @@
 current_date=$(date +%Y-%m-%d)
 one_year_from_now=$(date -d "+1 year" +%Y-%m-%d)
 
+echo "Starting at $current_date" > log.txt
+
 # query the available calendars
 url="https://elkw2808.krz.tools/index.php?q=churchcal%2Fajax"
 data="func=getMasterData"
@@ -12,8 +14,10 @@ response=$(curl -s -X POST -d "$data" "$url")
 # Extracting the list of integers using jq
 calendar_categories=$(echo "$response" | jq -r '.data.category | keys[] | tonumber')
 
+echo "Fetched calendar categories: $calendar_categories" >> log.txt
+
 # Initialize the events.json file
-echo "{\"data\": []}" > events.json
+echo "{\"data\": []}" > events_raw.json
 
 # Iterate over each integer and fetch the JSON results
 for category_id in $calendar_categories; do
@@ -24,13 +28,13 @@ for category_id in $calendar_categories; do
     curl -s "$api_url" -o "$temp_file"
     
     # Call the Python script to append the JSON data to events.json
-    python3 append_json.py "$temp_file" "events.json"
+    python3 append_json.py "$temp_file" "events_raw.json" >> log.txt
     
     # Remove the temporary file
-    rm "$temp_file"
+    #rm "$temp_file"
 done
 
-python3 resolve_repeating_events.py
+python3 resolve_repeating_events.py >> log.txt
 
 # available calendars: 31, 49, 52, 55, 58, 60, 67, 73, 76
 # 31 Gottesdienst
@@ -43,7 +47,7 @@ python3 resolve_repeating_events.py
 # 73 Ferien BaWü
 # 76 Kirchenjahr 2024/25
 
-echo "finished downloading events at ${current_date}" > msg.html
-ls -l >> msg.html
+echo "finished downloading events at ${current_date}" >> log.txt
+ls -l >> log.txt
 
 

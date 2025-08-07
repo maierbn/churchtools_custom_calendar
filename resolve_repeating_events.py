@@ -21,6 +21,9 @@ def expand_events(events):
             start_date = dateutil.parser.parse(appointment["startDate"])
             end_date = dateutil.parser.parse(appointment["endDate"])
 
+            print(f"[resolve_repeating_events.py] Event {base['title']} in recurring.")
+            print(f"[resolve_repeating_events.py] {repeat_frequency=} {repeat_until=} {start_date=} {end_date=}")
+
             # Extract exceptions if any
             exceptions = set()
             for exception in appointment["exceptions"]:
@@ -56,11 +59,13 @@ def expand_events(events):
     return expanded_events
 
 def sort_events(events):
+    print(f"[resolve_repeating_events.py] Sort {len(events)} events")
+    
     # Sort events by their startDate
     return sorted(events, key=lambda x: dateutil.parser.parse(x["calculated"]["startDate"]))
 
 # Load the JSON data from the file
-with open('events.json', 'r') as f:
+with open('events_raw.json', 'r') as f:
     data = json.load(f)
 
 # Expand the events

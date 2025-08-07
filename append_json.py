@@ -20,6 +20,8 @@ def append_json(source_file, dest_file):
         }
         json.dump(result, file, indent=4)
 
+    print(f"[append_json.py] appended {source_file} ({len(source_data)} entries) to {dest_file} (now {len(dest_data)} entries)")
+
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python3 append_json.py <source_file> <dest_file>")
