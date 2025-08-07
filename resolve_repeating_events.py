@@ -1,6 +1,12 @@
 import json
 from datetime import datetime, timedelta
 import dateutil.parser
+import dateutil.tz
+
+def make_timezone_aware(dt):
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=dateutil.tz.UTC)
+    return dt
 
 def expand_events(events):
     # Initialize an empty list to store expanded events
@@ -17,9 +23,9 @@ def expand_events(events):
         # Check if the event has a repeat frequency and end date
         if appointment["repeatId"] != 0 and appointment["repeatUntil"] is not None:
             repeat_frequency = appointment["repeatFrequency"]
-            repeat_until = dateutil.parser.parse(appointment["repeatUntil"])
-            start_date = dateutil.parser.parse(appointment["startDate"])
-            end_date = dateutil.parser.parse(appointment["endDate"])
+            repeat_until = make_timezone_aware(dateutil.parser.parse(appointment["repeatUntil"]))
+            start_date = make_timezone_aware(dateutil.parser.parse(appointment["startDate"]))
+            end_date = make_timezone_aware(dateutil.parser.parse(appointment["endDate"]))
 
             print(f"[resolve_repeating_events.py] Event {base['title']} in recurring.")
             print(f"[resolve_repeating_events.py] {repeat_frequency=} {repeat_until=} {start_date=} {end_date=}")
@@ -62,7 +68,7 @@ def sort_events(events):
     print(f"[resolve_repeating_events.py] Sort {len(events)} events")
     
     # Sort events by their startDate
-    return sorted(events, key=lambda x: dateutil.parser.parse(x["calculated"]["startDate"]))
+    return sorted(events, key=lambda x: make_timezone_aware(dateutil.parser.parse(x["calculated"]["startDate"])))
 
 # Load the JSON data from the file
 with open('events_raw.json', 'r') as f:
