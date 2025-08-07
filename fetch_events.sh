@@ -17,7 +17,7 @@ echo "Login response: $response" | tee -a log.txt
 # parse token
 token=$(echo "$response" | jq -r '.token')
 
-echo "Token: $token" | tee -a log.txt
+echo "Token: $token " | tee -a log.txt
 
 # check if login was successful
 if [[ "$token" == "null" || -z "$token" ]]; then
