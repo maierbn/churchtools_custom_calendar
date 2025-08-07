@@ -11,6 +11,17 @@ data="func=getMasterData"
 # Making the POST request using curl
 response=$(curl -s -X POST -d "$data" "$url")
 
+echo "Fetching calendar categories ..."
+echo "url=[$url]"
+echo "data=[$data]"
+echo "response=[$response]"
+echo "step 1:"
+echo "$response" | jq -r '.data.category'
+echo "step 2:"
+echo echo "$response" | jq -r '.data.category | keys[]'
+echo "step 3:"
+echo "$response" | jq -r '.data.category | keys[] | tonumber'
+
 # Extracting the list of integers using jq
 calendar_categories=$(echo "$response" | jq -r '.data.category | keys[] | tonumber')
 
