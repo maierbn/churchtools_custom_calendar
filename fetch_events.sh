@@ -10,7 +10,7 @@ churchtools_url="https://elkw2808.krz.tools"
 # login to churchtools
 response=$(curl -s -X POST "$churchtools_url/api/login" \
   -H "Content-Type: application/json" \
-  -d "{\"username\": \"$churchools_username\", \"password\": \"$churchools_password\"}")
+  -d "{\"username\": \"$CHURCHTOOLS_USERNAME\", \"password\": \"$CHURCHTOOLS_PASSWORD\"}")
 
 # parse token
 token=$(echo "$response" | jq -r '.token')

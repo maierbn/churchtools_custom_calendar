@@ -32,8 +32,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     env:
-      churchools_username: ${{ secrets.churchools_username }}
-      churchools_password: ${{ secrets.churchools_password }}
+      CHURCHTOOLS_USERNAME: ${{ secrets.CHURCHTOOLS_USERNAME }}
+      CHURCHTOOLS_PASSWORD: ${{ secrets.CHURCHTOOLS_PASSWORD }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
