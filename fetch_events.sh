@@ -4,26 +4,48 @@ one_year_from_now=$(date -d "+1 year" +%Y-%m-%d)
 
 echo "Starting at $current_date" > log.txt
 
+# login
+churchtools_url="https://elkw2808.krz.tools"
+
+# login to churchtools
+response=$(curl -s -X POST "$churchtools_url/api/login" \
+  -H "Content-Type: application/json" \
+  -d "{\"username\": \"$churchools_username\", \"password\": \"$churchools_password\"}")
+
+# parse token
+token=$(echo "$response" | jq -r '.token')
+
+# check if login was successful
+if [[ "$token" == "null" || -z "$token" ]]; then
+  echo "Failed to login. Response:"
+  echo "$response"
+  exit 1
+fi
+
+
 # # query the available calendars
-# url="https://elkw2808.krz.tools/index.php?q=churchcal%2Fajax"
-# data="func=getMasterData"
+url="https://elkw2808.krz.tools/index.php?q=churchcal%2Fajax"
+data="func=getMasterData"
 # 
 # # Making the POST request using curl
-# response=$(curl -s -X POST -d "$data" "$url")
-# 
-# echo "Fetching calendar categories ..."
-# echo "url=[$url]"
-# echo "data=[$data]"
-# echo "response=[$response]"
-# echo "step 1:"
-# echo "$response" | jq -r '.data.category'
-# echo "step 2:"
-# echo echo "$response" | jq -r '.data.category | keys[]'
-# echo "step 3:"
-# echo "$response" | jq -r '.data.category | keys[] | tonumber'
-# 
-# # Extracting the list of integers using jq
-# calendar_categories=$(echo "$response" | jq -r '.data.category | keys[] | tonumber')
+response=$(curl -s -X POST -H "Authorization: Bearer $token" -d "$data" "$url")
+ 
+echo "Fetching calendar categories ..."
+echo "url=[$url]"
+echo "data=[$data]"
+echo "response=[$response]"
+echo "step 1:"
+echo "$response" | jq -r '.data.category'
+echo "step 2:"
+echo echo "$response" | jq -r '.data.category | keys[]'
+echo "step 3:"
+echo "$response" | jq -r '.data.category | keys[] | tonumber'
+
+# Extracting the list of integers using jq
+calendar_categories=$(echo "$response" | jq -r '.data.category | keys[] | tonumber')
+
+echo "Fetched calendar categories: $calendar_categories" >> log.txt
+
 
 calendar_categories="31 49 52 55 58 60 67 76 80"
 
@@ -38,7 +60,9 @@ for category_id in $calendar_categories; do
 
     # Save the fetched JSON response to a temporary file
     temp_file="appointment_$category_id.json"
-    curl -s "$api_url" -o "$temp_file"
+    curl -s "$api_url" \
+        -H "Authorization: Bearer $token" \
+        -o "$temp_file"
     
     # Call the Python script to append the JSON data to events.json
     python3 append_json.py "$temp_file" "events_raw.json" >> log.txt
