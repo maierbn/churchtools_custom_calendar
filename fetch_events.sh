@@ -4,56 +4,60 @@ one_year_from_now=$(date -d "+1 year" +%Y-%m-%d)
 
 echo "Starting at $current_date" | tee -a log.txt
 
-# login
-churchtools_url="https://elkw2808.krz.tools"
-cookie_file="cookies.txt"
+if false; then
 
-# login to churchtools
-# response=$(curl -s -X POST "$churchtools_url/api/login" \
-#   -H "Content-Type: application/json" \
-#   -d "{\"username\": \"$CHURCHTOOLS_USERNAME\", \"password\": \"$CHURCHTOOLS_PASSWORD\"}" \
-#   -c "$cookie_file")
-# 
-# echo "Login response: $response" | tee -a log.txt
+    # login
+    churchtools_url="https://elkw2808.krz.tools"
+    cookie_file="cookies.txt"
 
-# # query the available calendars
-# 
-# # Making the POST request using curl
-# response=$(curl -s -X POST -b "$cookie_file" -d "$data" "$url")
- 
-response=$(curl 'https://elkw2808.krz.tools/index.php?q=churchcal/ajax' \
-  --compressed \
-  -X POST \
-  -H 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:141.0) Gecko/20100101 Firefox/141.0' \
-  -H 'Accept: application/json, text/javascript, */*; q=0.01' \
-  -H 'Accept-Language: en-US,en;q=0.5' \
-  -H 'Accept-Encoding: gzip, deflate, br, zstd' \
-  -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
-  -H 'CSRF-Token: null' \
-  -H 'X-Requested-With: XMLHttpRequest' \
-  -H 'Origin: https://elkw2808.krz.tools' \
-  -H 'DNT: 1' \
-  -H 'Connection: keep-alive' \
-  -H 'Referer: https://elkw2808.krz.tools/?q=churchcal' \
-  -H 'Cookie: language=de' \
-  -H 'Sec-Fetch-Dest: empty' \
-  -H 'Sec-Fetch-Mode: cors' \
-  -H 'Sec-Fetch-Site: same-origin' \
-  -H 'TE: trailers' \
-  --data-raw 'func=getMasterData')
+    # login to churchtools
+    # response=$(curl -s -X POST "$churchtools_url/api/login" \
+    #   -H "Content-Type: application/json" \
+    #   -d "{\"username\": \"$CHURCHTOOLS_USERNAME\", \"password\": \"$CHURCHTOOLS_PASSWORD\"}" \
+    #   -c "$cookie_file")
+    # 
+    # echo "Login response: $response" | tee -a log.txt
 
-echo "Fetching calendar categories ..." | tee -a log.txt
-echo "url=[$url]" | tee -a log.txt
-echo "data=[$data]" | tee -a log.txt
-echo "response=[$response]" | tee -a log.txt
+    # # query the available calendars
+    # 
+    # # Making the POST request using curl
+    # response=$(curl -s -X POST -b "$cookie_file" -d "$data" "$url")
+    
+    echo "Fetching calendar categories ..." | tee -a log.txt
+    echo "url=[$url]" | tee -a log.txt
+    echo "data=[$data]" | tee -a log.txt
 
-# Extracting the list of integers using jq
-calendar_categories=$(echo "$response" | jq -r '.data.category | keys[] | tonumber')
+    response=$(curl 'https://elkw2808.krz.tools/index.php?q=churchcal/ajax' \
+    --compressed \
+    -X POST \
+    -H 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:141.0) Gecko/20100101 Firefox/141.0' \
+    -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+    -H 'Accept-Language: en-US,en;q=0.5' \
+    -H 'Accept-Encoding: gzip, deflate, br, zstd' \
+    -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
+    -H 'CSRF-Token: null' \
+    -H 'X-Requested-With: XMLHttpRequest' \
+    -H 'Origin: https://elkw2808.krz.tools' \
+    -H 'DNT: 1' \
+    -H 'Connection: keep-alive' \
+    -H 'Referer: https://elkw2808.krz.tools/?q=churchcal' \
+    -H 'Cookie: language=de' \
+    -H 'Sec-Fetch-Dest: empty' \
+    -H 'Sec-Fetch-Mode: cors' \
+    -H 'Sec-Fetch-Site: same-origin' \
+    -H 'TE: trailers' \
+    --data-raw 'func=getMasterData')
 
-echo "Fetched calendar categories: $calendar_categories" | tee -a log.txt
+    echo "response=[$response]" | tee -a log.txt
 
-# calendar_categories="31 49 52 55 58 60 67 76 80"
-# echo "Fetched calendar categories: $calendar_categories" | tee -a log.txt
+    # Extracting the list of integers using jq
+    calendar_categories=$(echo "$response" | jq -r '.data.category | keys[] | tonumber')
+
+    echo "Fetched calendar categories: $calendar_categories" | tee -a log.txt
+fi 
+
+calendar_categories="31 49 52 55 58 60 67 76 80"
+echo "Using pre-defined calendar categories: $calendar_categories" | tee -a log.txt
 
 # Initialize the events.json file
 echo "{\"data\": []}" > events_raw.json
