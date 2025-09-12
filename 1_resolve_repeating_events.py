@@ -74,12 +74,6 @@ def expand_events(events):
 
     return expanded_events
 
-def sort_events(events):
-    print(f"[resolve_repeating_events.py] Sort {len(events)} events")
-    
-    # Sort events by their startDate
-    return sorted(events, key=lambda x: make_timezone_aware(dateutil.parser.parse(x["calculated"]["startDate"])))
-
 # Load input
 with open('events_raw.json', 'r') as f:
     data = json.load(f)
@@ -87,9 +81,6 @@ with open('events_raw.json', 'r') as f:
 # Expand + filter
 expanded_data = expand_events(data["data"])
 
-# Sort the events by date
-sorted_data = sort_events(expanded_data)
-
 # Save the expanded events back to a JSON file
-with open('events.json', 'w') as f:
-    json.dump({"data": sorted_data}, f, indent=4)
+with open('1_events_expanded.json', 'w') as f:
+    json.dump({"data": expanded_data}, f, indent=4)

@@ -56,8 +56,19 @@ if true; then
     echo "Fetched calendar categories: $calendar_categories" | tee -a log.txt
 fi 
 
-calendar_categories="31 49 52 55 58 60 67 76 80"
-echo "Using pre-defined calendar categories: $calendar_categories" | tee -a log.txt
+# available calendars: 31, 49, 52, 55, 58, 60, 67, 73, 76
+# 31 Gottesdienst
+# 46 Kirchenjahr 2023/24
+# 49 Kinder
+# 52 Jugend
+# 55 Erwachsene
+# 58 Familie
+# 67 Westerfeld Café
+# 73 Ferien BaWü
+# 76 Kirchenjahr 2024/25
+
+#calendar_categories="31 49 52 55 58 60 67 76 80"
+#echo "Using pre-defined calendar categories: $calendar_categories" | tee -a log.txt
 
 # Initialize the events.json file
 echo "{\"data\": []}" > events_raw.json
@@ -76,21 +87,12 @@ for category_id in $calendar_categories; do
     python3 append_json.py "$temp_file" "events_raw.json" | tee -a log.txt
     
     # Remove the temporary file
-    #rm "$temp_file"
+    rm "$temp_file"
 done
 
-python3 resolve_repeating_events.py | tee -a log.txt
-
-# available calendars: 31, 49, 52, 55, 58, 60, 67, 73, 76
-# 31 Gottesdienst
-# 46 Kirchenjahr 2023/24
-# 49 Kinder
-# 52 Jugend
-# 55 Erwachsene
-# 58 Familie
-# 67 Westerfeld Café
-# 73 Ferien BaWü
-# 76 Kirchenjahr 2024/25
+python3 1_resolve_repeating_events.py | tee -a log.txt
+python3 2_sort_events.py | tee -a log.txt
+python3 3_filter_event_data.py | tee -a log.txt
 
 echo "finished downloading events at ${current_date}" | tee -a log.txt
 ls -l | tee -a log.txt
