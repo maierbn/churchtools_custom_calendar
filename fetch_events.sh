@@ -4,7 +4,7 @@ one_year_from_now=$(date -d "+1 year" +%Y-%m-%d)
 
 echo "Starting at $current_date" | tee -a log.txt
 
-if false; then
+if true; then
 
     # login
     churchtools_url="https://elkw2808.krz.tools"

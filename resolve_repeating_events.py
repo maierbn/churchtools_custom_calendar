@@ -12,36 +12,46 @@ def expand_events(events):
     # Initialize an empty list to store expanded events
     expanded_events = []
 
+    # Define date boundaries
+    now = datetime.now(dateutil.tz.UTC)
+    one_year_later = now + timedelta(days=365)
+
     for event in events:
         # Extract base information about the event
         base = event["base"]
         appointment = event["appointment"]["base"]
 
-        # Add the original event to the expanded list
+        # Parse start/end
+        start_date = make_timezone_aware(dateutil.parser.parse(event["calculated"]["startDate"]))
+        end_date = make_timezone_aware(dateutil.parser.parse(event["calculated"]["endDate"]))
+
+        # Skip events outside allowed window
+        if not (now <= start_date <= one_year_later):
+            continue
+
+        # Add the original event if in range
         expanded_events.append(event)
 
-        # Check if the event has a repeat frequency and end date
-        if appointment["repeatId"] != 0 and appointment["repeatUntil"] is not None:
+        # Handle repeating events
+        if appointment.get("repeatId", 0) != 0 and appointment.get("repeatUntil") is not None:
             repeat_frequency = appointment["repeatFrequency"]
             repeat_until = make_timezone_aware(dateutil.parser.parse(appointment["repeatUntil"]))
-            start_date = make_timezone_aware(dateutil.parser.parse(appointment["startDate"]))
-            end_date = make_timezone_aware(dateutil.parser.parse(appointment["endDate"]))
+            repeat_until = min(repeat_until, one_year_later)  # clamp to +1 year
 
-            print(f"[resolve_repeating_events.py] Event {base['title']} in recurring.")
-            print(f"[resolve_repeating_events.py] {repeat_frequency=} {repeat_until=} {start_date=} {end_date=}")
+            # Exceptions
+            exceptions = {
+                dateutil.parser.parse(exc["date"]).date()
+                for exc in appointment.get("exceptions", [])
+            }
 
-            # Extract exceptions if any
-            exceptions = set()
-            for exception in appointment["exceptions"]:
-                exceptions.add(dateutil.parser.parse(exception["date"]).date())
-
-            # Calculate and add each occurrence of the repeating event
             while start_date <= repeat_until:
                 start_date += timedelta(days=repeat_frequency * 7)
                 end_date += timedelta(days=repeat_frequency * 7)
 
-                if start_date.date() not in exceptions:
-                    # Create a new event occurrence based on the original
+                if start_date.date() in exceptions:
+                    continue
+
+                if now <= start_date <= one_year_later:
                     new_event = {
                         "appointment": {
                             "base": appointment.copy(),
@@ -56,7 +66,7 @@ def expand_events(events):
                             "endDate": end_date.isoformat()
                         }
                     }
-                    # Update startDate and endDate for the new occurrence
+                    # also update base start/end
                     new_event["appointment"]["base"]["startDate"] = start_date.isoformat()
                     new_event["appointment"]["base"]["endDate"] = end_date.isoformat()
 
@@ -70,11 +80,11 @@ def sort_events(events):
     # Sort events by their startDate
     return sorted(events, key=lambda x: make_timezone_aware(dateutil.parser.parse(x["calculated"]["startDate"])))
 
-# Load the JSON data from the file
+# Load input
 with open('events_raw.json', 'r') as f:
     data = json.load(f)
 
-# Expand the events
+# Expand + filter
 expanded_data = expand_events(data["data"])
 
 # Sort the events by date
@@ -82,4 +92,4 @@ sorted_data = sort_events(expanded_data)
 
 # Save the expanded events back to a JSON file
 with open('events.json', 'w') as f:
-    json.dump({"data": expanded_data}, f, indent=4)
+    json.dump({"data": sorted_data}, f, indent=4)
