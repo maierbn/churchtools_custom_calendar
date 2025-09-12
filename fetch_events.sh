@@ -2,7 +2,7 @@
 current_date=$(date +%Y-%m-%d)
 one_year_from_now=$(date -d "+1 year" +%Y-%m-%d)
 
-echo "Starting at $current_date" | tee -a log.txt
+echo "Starting at $current_date" | tee log.txt
 
 if true; then
 

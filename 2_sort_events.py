@@ -8,7 +8,7 @@ def make_timezone_aware(dt):
     return dt
 
 def sort_events(events):
-    print(f"[resolve_repeating_events.py] Sort {len(events)} events")
+    print(f"[2_sort_events.py] Sort {len(events)} events")
     
     # Sort events by their startDate
     return sorted(events, key=lambda x: make_timezone_aware(dateutil.parser.parse(x["calculated"]["startDate"])))
