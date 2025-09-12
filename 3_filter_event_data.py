@@ -26,11 +26,13 @@ def filter_event_fields(event: dict) -> dict:
     }
 
 # Load input
-with open('2_events_sorted.json', 'r') as f:
+with open('events_2_sorted.json', 'r') as f:
     sorted_data = json.load(f)
 
 # Keep only used fields
 filtered_data = [filter_event_fields(e) for e in sorted_data]
+
+print(f"[3_filter_event_data.py] Filtered {len(filtered_data)} events")
 
 # Save the expanded events back to a JSON file
 with open('events.json', 'w') as f:

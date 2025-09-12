@@ -75,12 +75,14 @@ def expand_events(events):
     return expanded_events
 
 # Load input
-with open('events_raw.json', 'r') as f:
+with open('events_0_raw.json', 'r') as f:
     data = json.load(f)
 
 # Expand + filter
 expanded_data = expand_events(data["data"])
 
+print(f"[1_resolve_repeating_events.py] Expanded {len(data)} events to {len(expanded_data)} events")
+
 # Save the expanded events back to a JSON file
-with open('1_events_expanded.json', 'w') as f:
+with open('events_1_expanded.json', 'w') as f:
     json.dump({"data": expanded_data}, f, indent=4)

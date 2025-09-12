@@ -2,7 +2,7 @@
 current_date=$(date +%Y-%m-%d)
 one_year_from_now=$(date -d "+1 year" +%Y-%m-%d)
 
-echo "Starting at $current_date" | tee log.txt
+echo "Starting at $(date +%Y-%m-%d\ %H:%M:%S)" | tee log.txt
 
 if true; then
 
@@ -71,7 +71,7 @@ fi
 #echo "Using pre-defined calendar categories: $calendar_categories" | tee -a log.txt
 
 # Initialize the events.json file
-echo "{\"data\": []}" > events_raw.json
+echo "{\"data\": []}" > events_0_raw.json
 
 # Iterate over each integer and fetch the JSON results
 for category_id in $calendar_categories; do
@@ -84,7 +84,7 @@ for category_id in $calendar_categories; do
         -o "$temp_file"
     
     # Call the Python script to append the JSON data to events.json
-    python3 append_json.py "$temp_file" "events_raw.json" | tee -a log.txt
+    python3 append_json.py "$temp_file" "events_0_raw.json" | tee -a log.txt
     
     # Remove the temporary file
     rm "$temp_file"
@@ -94,7 +94,7 @@ python3 1_resolve_repeating_events.py | tee -a log.txt
 python3 2_sort_events.py | tee -a log.txt
 python3 3_filter_event_data.py | tee -a log.txt
 
-echo "finished downloading events at ${current_date}" | tee -a log.txt
+echo "Finished processing events at ${current_date}" | tee -a log.txt
 ls -l | tee -a log.txt
 
 
