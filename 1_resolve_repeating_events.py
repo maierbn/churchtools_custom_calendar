@@ -81,7 +81,7 @@ with open('events_0_raw.json', 'r') as f:
 # Expand + filter
 expanded_data = expand_events(data["data"])
 
-print(f"[1_resolve_repeating_events.py] Expanded {len(data)} events to {len(expanded_data)} events")
+print(f"[1_resolve_repeating_events.py] Expanded {len(data["data"])} events to {len(expanded_data)} events")
 
 # Save the expanded events back to a JSON file
 with open('events_1_expanded.json', 'w') as f:
