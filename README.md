@@ -6,7 +6,7 @@ Dieses Projekt stellt nun einen Web-Kalender zur Verfügung, der die Termine aus
 Der Anwender kann die Formatierung sowie Filterung von Terminen anpassen. So können unterschiedliche Kalender-Ausgaben an verschiedenen Stellen auf der Homepage angelegt werden.
 
 Für die Standard-Einstellungen, siehe [Demo](https://maierbn.github.io/churchtools_custom_calendar/index.html). 
-
+ 
 Die Termine werden immer zur vollen Stunde aus Churchtools aktualisiert. Die Aktualisierung geschieht durch eine Github Action. Es wird die aktuelle Ausgabe aus der API von churchtools als JSON-Datei heruntergeladen. :page_with_curl: Der Kalender ist mithilfe von Github Pages gehostet und stellt die Termine durch Javascript-Code dar.
 
 # Verwendung
