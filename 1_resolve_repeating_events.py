@@ -83,6 +83,6 @@ expanded_data = expand_events(data["data"])
 
 print(f"[1_resolve_repeating_events.py] Expanded {len(data["data"])} events to {len(expanded_data)} events")
 
-# Save the expanded events back to a JSON file
+# Save the expanded events back to a JSON  file
 with open('events_1_expanded.json', 'w') as f:
     json.dump({"data": expanded_data}, f, indent=4)
