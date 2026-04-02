@@ -74,7 +74,7 @@ def expand_events(events):
 
     return expanded_events
 
-# Load input
+# Load input 
 with open('events_0_raw.json', 'r') as f:
     data = json.load(f)
 
