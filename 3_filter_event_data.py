@@ -13,7 +13,7 @@ def filter_event_fields(event: dict) -> dict:
                 "meetingAt": event.get("base", {}).get("address", {}).get("meetingAt")
             } if event.get("base", {}).get("address") else None,
             "image": {
-                "fileUrl": event.get("base", {}).get("image", {}).get("fileUrl")
+                "fileUrl": event.get("base", {}).get("image", {}).get("imageUrl")
             } if event.get("base", {}).get("image") else None,
             "calendar": {
                 "name": event.get("base", {}).get("calendar", {}).get("name")
